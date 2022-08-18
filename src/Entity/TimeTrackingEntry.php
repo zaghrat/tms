@@ -13,6 +13,12 @@ use Gedmo\Mapping\Annotation as Gedmo;
 #[ORM\Entity(repositoryClass: TimeTrackingEntryRepository::class)]
 class TimeTrackingEntry
 {
+    public const CHECK_IN = 'checking';
+    public const CHECK_OUT = 'checkout';
+    public const START_PAUSE = 'start-pause';
+    public const COMPLETE_PAUSE = 'complete-pause';
+
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -26,36 +32,35 @@ class TimeTrackingEntry
     #[ORM\JoinColumn(nullable: false)]
     private ?Vehicle $Vehicle = null;
 
-    /**
-     * @var DateTimeImmutable $created
-     *
-     * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(type="datetimetz_immutable")
-     */
+    #[ORM\Column(name: "created_at", nullable: false)]
     private DateTimeImmutable $created;
 
-    /**
-     * @var DateTime $updated
-     *
-     * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(type="datetimetz")
-     */
+
+    #[ORM\Column(name: "updated_at", nullable: false)]
     private DateTime $updated;
 
+    #[ORM\Column(name: "typeOfOperation", length: 255, nullable: false)]
+    private string $type;
+
+    #[ORM\Column]
+    private bool $isCheckedOut = false;
+
     /**
-     * @return DateTime
+     * @return DateTimeImmutable
      */
-    public function getCreated(): DateTime
+    public function getCreated(): DateTimeImmutable
     {
         return $this->created;
     }
 
     /**
-     * @param DateTime $created
+     * @param DateTimeImmutable $created
+     * @return TimeTrackingEntry
      */
-    public function setCreated(DateTime $created): void
+    public function setCreated(DateTimeImmutable $created): self
     {
         $this->created = $created;
+        return $this;
     }
 
     /**
@@ -69,9 +74,10 @@ class TimeTrackingEntry
     /**
      * @param DateTime $updated
      */
-    public function setUpdated(DateTime $updated): void
+    public function setUpdated(DateTime $updated): self
     {
         $this->updated = $updated;
+        return $this;
     }
 
     public function getId(): ?int
@@ -99,6 +105,30 @@ class TimeTrackingEntry
     public function setVehicle(?Vehicle $Vehicle): self
     {
         $this->Vehicle = $Vehicle;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function isCheckedOut(): bool
+    {
+        return $this->isCheckedOut;
+    }
+
+    public function setIsCheckedOut(bool $isCheckedOut): self
+    {
+        $this->isCheckedOut = $isCheckedOut;
 
         return $this;
     }

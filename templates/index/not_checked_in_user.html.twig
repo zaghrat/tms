@@ -3,17 +3,19 @@
         <label for="">Select Vehicle </label>
     </div>
 </div>
-<div class="row">
-    <div class="col">
-        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-            {% for vehicle in vehicles %}
-                <option value="vehicle.id">{{ vehicle.id }}</option>
-            {% endfor %}
-        </select>
+<form action="{{ path("app_checkIn") }}" method="post">
+    <div class="row">
+        <div class="col">
+            <select name="vehicle" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                {% for vehicle in vehicles %}
+                    <option value="{{ vehicle.id }}">{{ vehicle.id }}</option>
+                {% endfor %}
+            </select>
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="col text-center">
-        <button class="myButton ">Check In</button>
+    <div class="row">
+        <div class="d-grid gap-2 col-6 mx-auto">
+            <button type="submit" class="btn btn-success btn-lg">Check In</button>
+        </div>
     </div>
-</div>
+</form>
