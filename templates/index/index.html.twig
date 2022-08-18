@@ -3,5 +3,28 @@
 {% block title %}Hello IndexController!{% endblock %}
 
 {% block body %}
-<h1>{{ message }}</h1>
+    <div class="navbar-nav">
+        <div class="row">
+            <div class="col">
+                <h1 class="">Hello {{ app.user.firstname }} {{ app.user.lastname }}</h1>
+            </div>
+            <div class="col">
+                <div class="d-flex flex-row-reverse bd-highlight">
+                    <a class="btn btn-danger"    href="{{ path("app_logout") }}">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+
+            <hr>
+            <hr>
+            {% if (app.session.get('checkedIn') == true) %}
+                {{ include('index/checked_in_user.html.twig') }}
+            {% else %}
+                {{ include('index/not_checked_in_user.html.twig') }}
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}

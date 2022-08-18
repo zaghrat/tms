@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -35,6 +37,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 50)]
     private ?string $lastname = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: TimeTrackingEntry::class, orphanRemoval: true)]
+    private Collection $timeTrackingEntries;
+
+    public function __construct()
+    {
+        $this->timeTrackingEntries = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -108,7 +118,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getFirstname(): ?string
     {
-        return $this->firstname;
+        return ucfirst($this->firstname);
     }
 
     public function setFirstname(string $firstname): self
@@ -125,7 +135,37 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setLastname(string $lastname): self
     {
-        $this->lastname = $lastname;
+        $this->lastname = ucfirst($lastname);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, TimeTrackingEntry>
+     */
+    public function getTimeTrackingEntries(): Collection
+    {
+        return $this->timeTrackingEntries;
+    }
+
+    public function addTimeTrackingEntry(TimeTrackingEntry $timeTrackingEntry): self
+    {
+        if (!$this->timeTrackingEntries->contains($timeTrackingEntry)) {
+            $this->timeTrackingEntries->add($timeTrackingEntry);
+            $timeTrackingEntry->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTimeTrackingEntry(TimeTrackingEntry $timeTrackingEntry): self
+    {
+        if ($this->timeTrackingEntries->removeElement($timeTrackingEntry)) {
+            // set the owning side to null (unless already changed)
+            if ($timeTrackingEntry->getUser() === $this) {
+                $timeTrackingEntry->setUser(null);
+            }
+        }
 
         return $this;
     }
