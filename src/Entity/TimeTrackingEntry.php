@@ -30,7 +30,7 @@ class TimeTrackingEntry
 
     #[ORM\ManyToOne(inversedBy: 'timeTrackingEntries')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Vehicle $Vehicle = null;
+    private ?Vehicle $vehicle = null;
 
     #[ORM\Column(name: "created_at", nullable: false)]
     private DateTimeImmutable $created;
@@ -99,12 +99,12 @@ class TimeTrackingEntry
 
     public function getVehicle(): ?Vehicle
     {
-        return $this->Vehicle;
+        return $this->vehicle;
     }
 
-    public function setVehicle(?Vehicle $Vehicle): self
+    public function setVehicle(?Vehicle $vehicle): self
     {
-        $this->Vehicle = $Vehicle;
+        $this->vehicle = $vehicle;
 
         return $this;
     }

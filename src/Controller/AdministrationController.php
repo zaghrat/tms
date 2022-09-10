@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,12 +22,13 @@ class AdministrationController extends AbstractController
         ]);
     }
 
-    #[Route('/user-details/{$id}', name: 'app_administration_user_details')]
-    public function userDetails(User $user): Response
+    #[Route('/time-entries-per-user/{id}', name: 'app_administration_time_entries_per_user')]
+    #[ParamConverter('user', User::class)]
+    public function timeEntriesPerUser(User $user): Response
     {
         $this->denyAccessUnlessGranted(User::ROLE_ADMIN);
 
-        return $this->render('administration/user-details.html.twig', [
+        return $this->render('administration/time-entries-per-user.html.twig', [
             'user' => $user
         ]);
     }
