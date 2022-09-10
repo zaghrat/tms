@@ -15,7 +15,7 @@ class Vehicle
     #[ORM\Column(length: 50, nullable: false)]
     private string $id;
 
-    #[ORM\OneToMany(mappedBy: 'Vehicle', targetEntity: TimeTrackingEntry::class)]
+    #[ORM\OneToMany(mappedBy: 'vehicle', targetEntity: TimeTrackingEntry::class)]
     private Collection $timeTrackingEntries;
 
     public function __construct()

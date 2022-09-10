@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration - Time Entries Per Vehicle{% endblock %}
+
+{% block body %}
+    <h2>Time Entries for Vehicle <span class="text-primary">{{ vehicle.id }}</span></h2>
+    <hr>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col" class="text-center">Date</th>
+            <th scope="col" class="text-center">Type Of Operation</th>
+            <th scope="col" class="text-center">Driver</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for timeEntry in vehicle.timeTrackingEntries %}
+        <tr>
+            <td class="text-center">
+                {{ timeEntry.created | date('Y-m-d h:i:s') }}
+            </td>
+            <td class="text-center" >
+                {% if timeEntry.type == 'checking' %}
+                    <span class="text-success">
+                             {{ timeEntry.type }}
+                        </span>
+                {% elseif timeEntry.type == 'start-pause' %}
+                    <span class="text-primary ">
+                             {{ timeEntry.type }}
+                        </span>
+                {% elseif timeEntry.type == 'complete-pause' %}
+                    <span class="text-secondary">
+                             {{ timeEntry.type }}
+                        </span>
+                {% elseif timeEntry.type == 'checkout' %}
+                    <span class="text-danger">
+                             {{ timeEntry.type }}
+                        </span>
+                {% endif %}
+            </td>
+            <td class="text-center">
+                <a href="{{ path("app_administration_time_entries_per_user", {'id': timeEntry.user.id}) }}">
+                    {{ timeEntry.user.firstname }} {{ timeEntry.user.lastname }}
+                </a>
+            </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

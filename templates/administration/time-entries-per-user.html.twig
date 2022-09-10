@@ -40,9 +40,11 @@
                     {% endif %}
                 </td>
                 <td class="text-center">
-                    {{ timeEntry.vehicle.id }}
+                    <a href="{{ path("app_administration_time_entries_per_vehicle", {'id': timeEntry.user.id}) }}">
+                        {{ timeEntry.vehicle.id }}
+                    </a>
                 </td>
-            </span>
+            </tr>
         {% endfor %}
         </tbody>
     </table>

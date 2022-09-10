@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Vehicle;
 use App\Repository\UserRepository;
 use App\Repository\VehicleRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -41,6 +42,17 @@ class AdministrationController extends AbstractController
 
         return $this->render('administration/list-vehicles.html.twig', [
             'vehicles' => $vehicleRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/time-entries-per-vehicle/{id}', name: 'app_administration_time_entries_per_vehicle')]
+    #[ParamConverter('vehicle', Vehicle::class)]
+    public function timeEntriesPerVehicle(Vehicle $vehicle): Response
+    {
+        $this->denyAccessUnlessGranted(User::ROLE_ADMIN);
+
+        return $this->render('administration/time-entries-per-vehicle.html.twig', [
+            'vehicle' => $vehicle
         ]);
     }
 }
