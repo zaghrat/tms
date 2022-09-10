@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/user')]
 class IndexController extends AbstractController
 {
     #[Route('/', name: 'app_index')]

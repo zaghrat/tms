@@ -18,7 +18,25 @@
     </head>
     <body>
     <div class="container">
-        {% block body %}{% endblock %}
+        {% if (app.user) %}
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+            <a href="{{ path("app_index") }}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+                <img width="100" src="https://lh3.googleusercontent.com/p/AF1QipO4C_eZPwa43zne0lz2Udf6_P1myIBGdkxii2GX=w1080-h608-p-no-v0" alt="">
+                <span style="padding-left: 50px;" class="fs-4"> Hello {{ app.user.firstname }} {{ app.user.lastname }}</span>
+            </a>
+
+            <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+                {% if ('ROLE_ADMIN' in app.user.roles) %}
+                    <li class="nav-link px-2 link-secondary"><a href="{{ path("app_administration_list_users") }}" class="nav-link active" aria-current="page">List of Users</a></li>
+                    <li class="nav-link px-2 link-secondary"><a href="{{ path("app_administration_list_users") }}" class="nav-link active" aria-current="page">List of Vehicles</a></li>
+                {% endif %}
+                <li class="nav-link px-2 link-secondary"><a href="{{ path("app_logout") }}" class="nav-link">Logout</a></li>
+            </ul>
+        </header>
+        {% endif %}
+
+        {% block body %}
+        {% endblock %}
     </div>
     </body>
 </html>

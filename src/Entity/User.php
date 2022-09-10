@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -15,6 +16,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    public const ROLE_DRIVER = 'ROLE_DRIVER';
+    public const ROLE_ADMIN = 'ROLE_ADMIN';
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -30,20 +33,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
-    private ?string $password = null;
+    private string $password;
 
     #[ORM\Column(length: 50)]
-    private ?string $firstname = null;
+    private string $firstname;
 
     #[ORM\Column(length: 50)]
-    private ?string $lastname = null;
+    private string $lastname;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: TimeTrackingEntry::class, orphanRemoval: true)]
     private Collection $timeTrackingEntries;
 
+    #[ORM\Column(nullable: false)]
+    private DateTimeImmutable $createdAt;
+
     public function __construct()
     {
         $this->timeTrackingEntries = new ArrayCollection();
+        $this->createdAt = new DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -80,7 +87,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $roles[] = self::ROLE_DRIVER;
 
         return array_unique($roles);
     }
@@ -166,6 +173,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $timeTrackingEntry->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(?DateTimeImmutable $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }
