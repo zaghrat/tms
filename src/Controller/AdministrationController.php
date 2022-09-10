@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
+use App\Repository\VehicleRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,6 +31,16 @@ class AdministrationController extends AbstractController
 
         return $this->render('administration/time-entries-per-user.html.twig', [
             'user' => $user
+        ]);
+    }
+
+    #[Route('/list-vehicles', name: 'app_administration_list_vehicles')]
+    public function listVehicles(VehicleRepository $vehicleRepository): Response
+    {
+        $this->denyAccessUnlessGranted(User::ROLE_ADMIN);
+
+        return $this->render('administration/list-vehicles.html.twig', [
+            'vehicles' => $vehicleRepository->findAll(),
         ]);
     }
 }
