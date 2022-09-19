@@ -6,6 +6,8 @@ services:
     volumes:
       - db_data:/var/lib/mysql
     restart: always
+    ports:
+      - "3306:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=tms
       - MYSQL_DATABASE=tms
@@ -17,13 +19,16 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    volumes:
+      - ./app:/var/www/html
+      - ./sys/etc/apache2/sites-available/000-default.conf:/etc/apache2/sites-available/000-default.conf
+    env_file:
+      - app/.env
     restart: always
     networks:
       - tms
     ports:
-      - "8000:80"
-    environment:
-      - DATABASE_URL="mysql://tms:tms@db:3306/tms"
+      - "9001:80"
 networks:
   tms:
 
