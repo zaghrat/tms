@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:8
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=tms
+      - MYSQL_DATABASE=tms
+      - MYSQL_USER=tms
+      - MYSQL_PASSWORD=tms
+    networks:
+      - tms
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./app:/var/www/html
+      - ./sys/etc/apache2/sites-available/000-default.conf:/etc/apache2/sites-available/000-default.conf
+    env_file:
+      - app/.env.prod
+    restart: always
+    networks:
+      - tms
+    ports:
+      - "80:80"
+networks:
+  tms:
+
+volumes:
+  db_data:

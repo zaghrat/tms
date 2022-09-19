@@ -20,8 +20,13 @@
                 label: 'Password'
             }) }}
         </div>
+        <br>
         <div class="form-group">
              <button type="submit" class="btn btn-primary">Register</button>
         </div>
     {{ form_end(registrationForm) }}
+    <hr>
+    <span>
+        Already have login and password? <a href="{{ path("app_login") }}"> Sign in</a>
+    </span>
 {% endblock %}
