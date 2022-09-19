@@ -16,16 +16,18 @@ RUN docker-php-ext-enable zip \
     && docker-php-ext-install soap \
     && docker-php-source delete
 
+COPY ./app /var/www/html
+COPY ./sys/etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf
 
 # install composer
-RUN cd /tmp
-RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-RUN php composer-setup.php
-RUN php -r "unlink('composer-setup.php');"
-RUN mv composer.phar /usr/local/bin/composer
+WORKDIR /tmp
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
+    && php composer-setup.php \
+    && php -r "unlink('composer-setup.php');"  \
+    && mv composer.phar /usr/local/bin/composer
 
 # install 3rd party bundles
-RUN cd /var/www/html
+WORKDIR /var/www/html
 RUN composer install
 
 
