@@ -16,4 +16,17 @@ RUN docker-php-ext-enable zip \
     && docker-php-ext-install soap \
     && docker-php-source delete
 
+
+# install composer
+RUN cd /tmp
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+RUN php composer-setup.php
+RUN php -r "unlink('composer-setup.php');"
+RUN sudo composer.phar /usr/local/bin/composer
+
+# install 3rd party bundles
+RUN cd /var/www/html
+RUN composer install
+
+
 CMD ["apache2-foreground"]
