@@ -22,7 +22,7 @@ RUN cd /tmp
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 RUN php composer-setup.php
 RUN php -r "unlink('composer-setup.php');"
-RUN composer.phar /usr/local/bin/composer
+RUN mv composer.phar /usr/local/bin/composer
 
 # install 3rd party bundles
 RUN cd /var/www/html
