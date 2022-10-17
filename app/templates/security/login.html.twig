@@ -21,7 +21,7 @@
 
     <div class="row">
         <div class="col">
-            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+            <h1 class="h3 mb-3 font-weight-normal">Bitte einloggen</h1>
         </div>
     </div>
     <div class="row">
@@ -35,7 +35,7 @@
     <div class="row">
         <div class="col">
             <div class="form-group">
-                <label for="inputPassword">Password</label>
+                <label for="inputPassword">Passwort</label>
                 <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
                 <input type="hidden" name="_csrf_token"
                        value="{{ csrf_token('authenticate') }}"
@@ -46,18 +46,17 @@
     <div class="row">
         <div class="col">
             <button class="btn btn-lg btn-primary" type="submit">
-                Sign in
+                Einloggen
             </button>
         </div>
     </div>
     <hr>
     <div class="row">
         <div class="col">
-            Don't have an account yet?
+            Sie haben noch kein Konto?
             <a href="{{ path("app_register") }}">
-                Register
+                Registrieren
             </a>
-            now
         </div>
     </div>
 </form>

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Registrieren{% endblock %}
 
 {% block body %}
     <div class="row">
@@ -9,7 +9,7 @@
             <hr>
         </div>
     </div>
-    <h1>Register</h1>
+    <h1>Registrieren</h1>
 
     {{ form_start(registrationForm) }}
         <div class="form-group">
@@ -28,11 +28,11 @@
         </div>
         <br>
         <div class="form-group">
-             <button type="submit" class="btn btn-primary">Register</button>
+             <button type="submit" class="btn btn-primary">Registrieren</button>
         </div>
     {{ form_end(registrationForm) }}
     <hr>
     <span>
-        Already have login and password? <a href="{{ path("app_login") }}"> Sign in</a>
+        Sie haben bereits Login und Passwort? <a href="{{ path("app_login") }}"> Einloggen</a>
     </span>
 {% endblock %}

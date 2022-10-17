@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Administration - Time Entries Per User{% endblock %}
+{% block title %}Administration - Zeiteinträge für Fahrer {% endblock %}
 
 {% block body %}
-    <h2>Time Entries for Driver <span class="text-primary">{{ user.firstname }} {{ user.lastname }}</span></h2>
+    <h2>Zeiteinträge für Fahrer  <span class="text-primary">{{ user.firstname }} {{ user.lastname }}</span></h2>
     <hr>
 
     <table class="table">
         <thead>
         <tr>
-            <th scope="col" class="text-center">Date</th>
-            <th scope="col" class="text-center">Type Of Operation</th>
-            <th scope="col" class="text-center">Vehicle</th>
+            <th scope="col" class="text-center">Datum</th>
+            <th scope="col" class="text-center">Art der Operation</th>
+            <th scope="col" class="text-center">Fahrzeug</th>
         </tr>
         </thead>
         <tbody>

@@ -28,14 +28,16 @@ class RegistrationFormType extends AbstractType
                 'firstname',
                 TextType::class,
                 [
-                    'attr' => ['class' => 'form-control']
+                    'attr' => ['class' => 'form-control'],
+                    'label' => 'Vorname'
                 ]
             )
             ->add(
                 'lastname',
                 TextType::class,
                 [
-                    'attr' => ['class' => 'form-control']
+                    'attr' => ['class' => 'form-control'],
+                    'label' => 'Nachname'
                 ]
             )
             ->add(
@@ -45,14 +47,15 @@ class RegistrationFormType extends AbstractType
                     // instead of being set onto the object directly,
                     // this is read and encoded in the controller
                     'mapped' => false,
-                    'attr' => ['autocomplete' => 'new-password', 'class' => 'form-control'],
+                    'attr' => ['class' => 'form-control'],
+                    'label' => 'Passwort',
                     'constraints' => [
                         new NotBlank([
-                            'message' => 'Please enter a password',
+                            'message' => 'Bitte Passwort eingeben',
                         ]),
                         new Length([
                             'min' => 6,
-                            'minMessage' => 'Your password should be at least {{ limit }} characters',
+                            'minMessage' => 'Ihr Passwort sollte mindestens {{ limit }} Zeichen lang sein',
                             // max length allowed by Symfony for security reasons
                             'max' => 4096,
                         ]),
