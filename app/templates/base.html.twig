@@ -27,8 +27,8 @@
 
             <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
                 {% if ('ROLE_ADMIN' in app.user.roles) %}
-                    <li class="nav-link px-2 link-secondary"><a href="{{ path("app_administration_list_users") }}" class="nav-link active" aria-current="page">List of Users</a></li>
-                    <li class="nav-link px-2 link-secondary"><a href="{{ path("app_administration_list_vehicles") }}" class="nav-link active" aria-current="page">List of Vehicles</a></li>
+                    <li class="nav-link px-2 link-secondary"><a href="{{ path("app_administration_list_users") }}" class="nav-link active" aria-current="page">Liste der Benutzer</a></li>
+                    <li class="nav-link px-2 link-secondary"><a href="{{ path("app_administration_list_vehicles") }}" class="nav-link active" aria-current="page">Liste der Fahrzeuge</a></li>
                 {% endif %}
                 <li class="nav-link px-2 link-secondary"><a href="{{ path("app_logout") }}" class="nav-link">Logout</a></li>
             </ul>
