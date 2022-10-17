@@ -6,14 +6,18 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     libxml2-dev \
     mariadb-client \
     zip \
+    libicu-dev \
     unzip \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
+
 
 RUN pecl install zip pcov
 RUN docker-php-ext-enable zip \
     && docker-php-ext-install pdo_mysql \
     && docker-php-ext-install bcmath \
     && docker-php-ext-install soap \
+    && docker-php-ext-configure intl \
+    && docker-php-ext-install intl \
     && docker-php-source delete
 
 COPY ./app /var/www/html
