@@ -3,11 +3,11 @@
         <div class="d-grid gap-2 col-6 mx-auto">
             {% if (app.session.get('in_pause')) %}
                 <a class="btn btn-secondary btn-lg" href="{{ path("app_complete_pause") }}">
-                    End Pause
+                    Pause beenden
                 </a>
             {% else %}
                 <a class="btn btn-success btn-lg" href="{{ path("app_start_pause") }}">
-                    Start Pause
+                    Pause starten
                 </a>
             {% endif %}
         </div>
@@ -17,7 +17,7 @@
     <div class="row">
         <div class="col text-center">
             <div class="d-grid gap-2 col-6 mx-auto">
-                <a href="{{ path("app_checkOut") }}" class="btn btn-primary btn-lg">Check Out</a>
+                <a href="{{ path("app_checkOut") }}" class="btn btn-primary btn-lg">Auschecken</a>
             </div>
         </div>
     </div>
